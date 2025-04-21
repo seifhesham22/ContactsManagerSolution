@@ -1,5 +1,8 @@
-﻿using CRUDEXAMPLE.Filters.ActionFilters;
+﻿using ContactsManager.Core.Domain.IdentityEntities;
+using CRUDEXAMPLE.Filters.ActionFilters;
 using Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
 using RepositoryContracts;
@@ -21,17 +24,16 @@ namespace CRUDEXAMPLE
             Services.AddScoped<IPersonsDeleterService, PersonsDeleterService>();
             Services.AddScoped<IPersonsUpdaterService, PersonsUpdaterService>();
             Services.AddScoped<IPersonsSorterService, PersonsSorterService>();
-            
-
-
-
             Services.AddTransient<PersonListActionFilter>();
             Services.AddTransient<ResponseHeaderActionFilter>();
             if(Enviroment != "test")
             Services.AddDbContext<ApplicationDbContext>(options => {
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
-
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));});
+            Services.AddIdentity<ApplicationUser, ApplicationRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders()
+            .AddUserStore<UserStore<ApplicationUser, ApplicationRole , ApplicationDbContext , Guid>>()
+            .AddRoleStore<RoleStore<ApplicationRole , ApplicationDbContext , Guid>>();
             return Services;
         }
     }
