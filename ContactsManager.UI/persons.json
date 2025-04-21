@@ -1,0 +1,93 @@
+[
+    {
+      "Id": "a1d6bc59-3eaf-4b5d-9a2b-12f4345d1b67",
+      "Name": "John Doe",
+      "Email": "john.doe@example.com",
+      "CountryId": "b17e8c1a-54f3-4a4a-908f-1d938b2d8c47",
+      "DateOfBirth": "1990-05-14T00:00:00Z",
+      "Gender": "Male",
+      "Address": "123 Main St, NY",
+      "RecieveNewsLetter": true
+    },
+    {
+      "Id": "32bcf50e-8e04-4c7a-8d2a-45e1d89cbb4d",
+      "Name": "Jane Smith",
+      "Email": "jane.smith@example.com",
+      "CountryId": "21f4c3b5-3ad7-4e56-9148-3b2b6484c8de",
+      "DateOfBirth": "1985-07-22T00:00:00Z",
+      "Gender": "Female",
+      "Address": "456 Maple Ave, Toronto",
+      "RecieveNewsLetter": false
+    },
+    {
+      "Id": "9f12b3c4-5d87-4129-a6d8-38d3a3c9a52a",
+      "Name": "Michael Brown",
+      "Email": "michael.brown@example.com",
+      "CountryId": "f6c5e2d8-99a4-4856-97f7-9b1eac378b53",
+      "DateOfBirth": "1993-11-10T00:00:00Z",
+      "Gender": "Male",
+      "Address": "789 Beethoven Str, Berlin",
+      "RecieveNewsLetter": true
+    },
+    {
+      "Id": "ff36e1d3-7b4e-4f2b-91c5-ae9f32d672b5",
+      "Name": "Satoshi Tanaka",
+      "Email": "satoshi.tanaka@example.com",
+      "CountryId": "9c2aaf1b-6218-4ff7-a3c7-5e3d05aefdd0",
+      "DateOfBirth": "1988-09-30T00:00:00Z",
+      "Gender": "Male",
+      "Address": "23 Sakura St, Tokyo",
+      "RecieveNewsLetter": false
+    },
+    {
+      "Id": "673d291a-46b2-4b79-bef5-973e1a75c8e4",
+      "Name": "Emily White",
+      "Email": "emily.white@example.com",
+      "CountryId": "ebcf1d2e-2fcb-42c7-98e7-d5c49f8c6141",
+      "DateOfBirth": "1995-04-12T00:00:00Z",
+      "Gender": "Female",
+      "Address": "67 Opera House St, Sydney",
+      "RecieveNewsLetter": true
+    },
+    {
+      "Id": "8d4e9d58-2f7a-4b4e-a637-07c6f652c7f9",
+      "Name": "Carlos Rivera",
+      "Email": "carlos.rivera@example.com",
+      "CountryId": "b17e8c1a-54f3-4a4a-908f-1d938b2d8c47",
+      "DateOfBirth": "1992-06-18T00:00:00Z",
+      "Gender": "Male",
+      "Address": "789 Sunset Blvd, LA",
+      "RecieveNewsLetter": false
+    },
+    {
+      "Id": "bc57a6de-4b39-4d3e-a7b9-5d58f9a37e4c",
+      "Name": "Olivia Martens",
+      "Email": "olivia.martens@example.com",
+      "CountryId": "f6c5e2d8-99a4-4856-97f7-9b1eac378b53",
+      "DateOfBirth": "1997-03-05T00:00:00Z",
+      "Gender": "Female",
+      "Address": "34 Mozart Ave, Munich",
+      "RecieveNewsLetter": true
+    },
+    {
+      "Id": "4a78d2bf-619e-4ea4-8e3f-4b6b5b97c2d3",
+      "Name": "Hiroshi Yamamoto",
+      "Email": "hiroshi.yamamoto@example.com",
+      "CountryId": "9c2aaf1b-6218-4ff7-a3c7-5e3d05aefdd0",
+      "DateOfBirth": "1990-12-24T00:00:00Z",
+      "Gender": "Male",
+      "Address": "45 Shibuya St, Tokyo",
+      "RecieveNewsLetter": false
+    },
+    {
+      "Id": "5d19af83-7e8c-4cf2-9fb7-2a8f63e5d7a1",
+      "Name": "Sophia Williams",
+      "Email": "sophia.williams@example.com",
+      "CountryId": "21f4c3b5-3ad7-4e56-9148-3b2b6484c8de",
+      "DateOfBirth": "1983-08-15T00:00:00Z",
+      "Gender": "Female",
+      "Address": "12 Oak St, Vancouver",
+      "RecieveNewsLetter": true
+    }
+  ]
+

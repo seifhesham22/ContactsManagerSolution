@@ -1,0 +1,23 @@
+
+  [
+    {
+      "CountryId": "b17e8c1a-54f3-4a4a-908f-1d938b2d8c47",
+      "CountryName": "United States"
+    },
+    {
+      "CountryId": "21f4c3b5-3ad7-4e56-9148-3b2b6484c8de",
+      "CountryName": "Canada"
+    },
+    {
+      "CountryId": "f6c5e2d8-99a4-4856-97f7-9b1eac378b53",
+      "CountryName": "Germany"
+    },
+    {
+      "CountryId": "9c2aaf1b-6218-4ff7-a3c7-5e3d05aefdd0",
+      "CountryName": "Japan"
+    },
+    {
+      "CountryId": "ebcf1d2e-2fcb-42c7-98e7-d5c49f8c6141",
+      "CountryName": "Australia"
+    }
+  ]
