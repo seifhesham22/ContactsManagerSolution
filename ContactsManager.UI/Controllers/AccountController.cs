@@ -83,6 +83,14 @@ namespace ContactsManager.UI.Controllers
             var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
+                ApplicationUser? user =await _userManager.FindByEmailAsync(login.Email);
+                if(user != null)
+                {
+                    if(await _userManager.IsInRoleAsync(user , UserTypeOptions.Admin.ToString()) == true)
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+                }
                 if(!returnUrl.IsNullOrEmpty() && Url.IsLocalUrl(returnUrl))
                 {
                     return LocalRedirect(returnUrl);
