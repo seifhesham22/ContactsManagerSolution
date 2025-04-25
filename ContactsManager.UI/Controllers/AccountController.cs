@@ -1,5 +1,6 @@
 ﻿using ContactsManager.Core.Domain.IdentityEntities;
 using ContactsManager.Core.DTO;
+using ContactsManager.Core.Enums;
 using CRUDEXAMPLE.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,10 +15,12 @@ namespace ContactsManager.UI.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly RoleManager<ApplicationRole> _roleManager;
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -38,6 +41,20 @@ namespace ContactsManager.UI.Controllers
             IdentityResult result = await _userManager.CreateAsync(user , register.Password);
             if (result.Succeeded)
             {
+                if (register.UserType == Core.Enums.UserTypeOptions.Admin)
+                {
+                    if (await _roleManager.FindByNameAsync(UserTypeOptions.Admin.ToString()) is null)
+                    {
+                        ApplicationRole Role = new ApplicationRole() { Name = UserTypeOptions.Admin.ToString() };
+                        await _roleManager.CreateAsync(Role);
+                    }
+                    await _userManager.AddToRoleAsync(user, UserTypeOptions.Admin.ToString());
+                }   
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
+
+                }
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction(nameof(PersonsController.Index), "Persons");
             }

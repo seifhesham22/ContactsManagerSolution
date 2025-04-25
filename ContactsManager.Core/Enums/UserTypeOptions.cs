@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ContactsManager.Core.Enums
 {
-    class UserTypeOptions
+    public enum UserTypeOptions
     {
+        User , Admin
     }
 }
