@@ -1,6 +1,7 @@
 ﻿using ContactsManager.Core.Domain.IdentityEntities;
 using CRUDEXAMPLE.Filters.ActionFilters;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -29,11 +30,21 @@ namespace CRUDEXAMPLE
             if(Enviroment != "test")
             Services.AddDbContext<ApplicationDbContext>(options => {
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));});
-            Services.AddIdentity<ApplicationUser, ApplicationRole>()
+            Services.AddIdentity<ApplicationUser, ApplicationRole>(options => { options.Password.RequiredLength = 5; options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredUniqueChars = 3;
+            })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders()
             .AddUserStore<UserStore<ApplicationUser, ApplicationRole , ApplicationDbContext , Guid>>()
             .AddRoleStore<RoleStore<ApplicationRole , ApplicationDbContext , Guid>>();
+            Services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build(); // enforces authorization policy (user must be authinticated) for all action method
+            });
+            Services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
             return Services;
         }
     }
