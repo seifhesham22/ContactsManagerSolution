@@ -9,6 +9,7 @@ using Serilog;
 using CRUDEXAMPLE.Filters.ActionFilters;
 using CRUDEXAMPLE;
 using CRUDEXAMPLE.MiddleWare;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ var logger = builder.Services.BuildServiceProvider().GetRequiredService<ILogger<
 builder.Services.AddControllersWithViews(options => {
 //options.Filters.Add<ResponseHeaderActionFilter>();
     options.Filters.Add(new ResponseHeaderActionFilter(logger) { Key = "Key-From-Global", Value = "Vlaue-From-Global", Order = 2 });
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
 //builder.Services.AddHttpLogging(options => options.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All); 
 
@@ -45,6 +47,8 @@ else
     app.UseExceptionHandler("/Error");
     app.UseExceptionHanelingMiddleware();
 }
+app.UseHsts();
+app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
 
 if (builder.Environment.IsEnvironment("test") == false)

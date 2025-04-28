@@ -5,12 +5,13 @@ using CRUDEXAMPLE.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ContactsManager.UI.Controllers
 {
     [Route("[controller]/[action]")]
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -24,12 +25,15 @@ namespace ContactsManager.UI.Controllers
         }
 
         [HttpGet]
+        [Authorize("NotAuthed")]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [Authorize("NotAuthed")]
         public async Task<IActionResult> Register(RegisterDTO register)
         {
             if (ModelState.IsValid == false)
@@ -52,6 +56,16 @@ namespace ContactsManager.UI.Controllers
                 }   
                 else
                 {
+                    if (register.UserType == Core.Enums.UserTypeOptions.User)
+                    {
+                        if (await _roleManager.FindByNameAsync(UserTypeOptions.User.ToString()) is null)
+                        {
+                            ApplicationRole Role = new ApplicationRole() { Name = UserTypeOptions.User.ToString() };
+                            await _roleManager.CreateAsync(Role);
+                        }
+                        await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
+                    }
+
                     await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
 
                 }
@@ -68,11 +82,13 @@ namespace ContactsManager.UI.Controllers
             return RedirectToAction(nameof(PersonsController.Index), "Persons");
         }
         [HttpGet]
+        [Authorize("NotAuthed")]
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
+        [Authorize("NotAuthed")]
         public async Task<IActionResult> Login(LoginDTO login , string? returnUrl)
         {
             if (ModelState.IsValid == false)
@@ -105,6 +121,7 @@ namespace ContactsManager.UI.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(PersonsController.Index), "Persons");
         }
+        [AllowAnonymous]
         public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
         {
             ApplicationUser? user = await _userManager.FindByEmailAsync(email);
@@ -116,6 +133,12 @@ namespace ContactsManager.UI.Controllers
             {
                 return Json(false);
             }
+        }
+        public IActionResult AccessDenied()
+        {
+            ViewBag.Error = "Sorry! Access denied"; 
+
+            return View();
         }
     }
 }

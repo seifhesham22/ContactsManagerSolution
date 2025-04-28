@@ -43,6 +43,13 @@ namespace CRUDEXAMPLE
             Services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build(); // enforces authorization policy (user must be authinticated) for all action method
+                options.AddPolicy("NotAuthed", policy =>
+                {
+                    policy.RequireAssertion(context =>
+                    {
+                        return !context.User.Identity.IsAuthenticated;
+                    });
+                });
             });
             Services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
             return Services;
